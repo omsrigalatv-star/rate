@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arga Says – Ratecard</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0d0d0d;
+      background-image: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
+      color: #e0e0e0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 5rem 1rem 3rem;
+      position: relative;
+    }
+iframe {
+  overflow: hidden;
+  scrollbar-width: none;
+}
+iframe::-webkit-scrollbar {
+  display: none;
+}
+    header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, rgba(255,0,0,0.05), transparent 70%);
+      z-index: -1;
+    }
+
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #ff4d4d;
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(255,0,0,0.3);
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #ff4d4d;
+      margin: 0;
+    }
+
+    header p {
+      color: #b3b3b3;
+      font-size: 1.1rem;
+      margin-top: 0.5rem;
+    }
+
+    .container {
+      max-width: 950px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .stat-box {
+      flex: 1;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      padding: 1rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .stat-box.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stat-box:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255,0,0,0.2);
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ff4d4d;
+    }
+
+    /* Engagement Section */
+    .engagement {
+      text-align: center;
+      margin: 3rem 0;
+      background: rgba(255,255,255,0.03);
+      padding: 2rem 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: 0.6s ease;
+    }
+
+    .engagement.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .engagement h2 {
+      font-family: 'Playfair Display', serif;
+      color: #ff4d4d;
+      margin-bottom: 0.5rem;
+    }
+
+    .engagement p {
+      font-size: 1.2rem;
+      color: #ccc;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(255,0,0,0.2);
+    }
+
+    .highlight {
+      border: 1px solid #ff4d4d;
+      background: rgba(255,0,0,0.05);
+      box-shadow: 0 0 15px rgba(255,0,0,0.15);
+    }
+
+    .card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: #ff4d4d;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #fff;
+      margin: 0.5rem 0 1rem;
+    }
+
+    .video-section h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #ff4d4d;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    iframe {
+      width: 100%;
+      aspect-ratio: 9/16;
+      border-radius: 12px;
+      border: none;
+      background: #000;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    iframe.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    iframe:hover {
+      transform: scale(1.03);
+      box-shadow: 0 4px 20px rgba(255,0,0,0.3);
+    }
+
+    .testimonial {
+      text-align: center;
+      margin: 3rem 0;
+      font-style: italic;
+      color: #b3b3b3;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .testimonial.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .button {
+      display: inline-block;
+      background: #ff4d4d;
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 0.5rem;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .button:hover {
+      background: #e63939;
+      transform: scale(1.05);
+    }
+
+    .floating-wa {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      font-size: 20px;
+      padding: 0.7rem 1rem;
+      border-radius: 50px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      text-decoration: none;
+      transition: transform 0.2s ease;
+      z-index: 1000;
+    }
+
+    .floating-wa:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #666;
+    }
+
+    @media (max-width: 640px) {
+      .stats { flex-direction: column; }
+      .video-grid { grid-template-columns: repeat(3, 1fr); }
+      header h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="https://p19-common-sign-useastred.tiktokcdn-eu.com/tos-useast2a-avt-0068-giso/d8374e9ddd5790ac1ebcd012dfca3048~tplv-tiktokx-cropcenter:1080:1080.jpeg?dr=14579&refresh_token=708215e8&x-expires=1758096000&x-signature=SuXD7NZtoD81kMFwTDXqixFAApk%3D&t=4d5b0474&ps=13740610&shp=a5d48078&shcp=81f88b70&idc=sg1" alt="Arga Says" class="hero-avatar">
+    <h1>Arga Says</h1>
+    <p>Horror Content Creator • TikTok & Podcast</p>
+  </header>
+
+  <div class="container">
+    <div class="stats">
+      <div class="stat-box"><div class="stat-number">900K+</div>TikTok Followers</div>
+      <div class="stat-box"><div class="stat-number">500K+</div>Podcast Followers</div>
+      <div class="stat-box"><div class="stat-number">10M+</div>Monthly Views</div>
+    </div>
+
+    <!-- Engagement Section -->
+    <div class="engagement">
+      <h2>Engagement Rate</h2>
+      <p><strong>8.7%</strong> – Di atas rata-rata kreator TikTok (3-6%) 🚀</p>
+<h2>Engagement Rate</h2>
+      <p><strong>8.7%</strong> – Di atas rata-rata kreator TikTok (3-6%) 🚀</p>
+    </div>
+
+    <div class="card highlight">
+      <h2>🔥 TikTok Video (Most Popular)</h2>
+      <p class="price">Rp 3.500.000</p>
+      <p>1x dedicated TikTok video (30-60 detik), disesuaikan dengan tema horror & storytelling khas Arga Says.</p>
+    </div>
+
+    <div class="card">
+      <h2>Instagram Story</h2>
+      <p class="price">Rp 1.000.000</p>
+      <p>3 frame story dengan call-to-action swipe up / link.</p>
+    </div>
+
+    <div class="card">
+      <h2>Podcast Mention</h2>
+      <p class="price">Rp 2.000.000</p>
+      <p>Mention 30-60 detik di awal/akhir episode podcast “Bagi Horror”.</p>
+    </div>
+
+    <div class="testimonial">
+      <p>“Arga selalu bisa bikin konsep horor jadi seru & engaging. Brand kami dapat exposure gila-gilaan!”</p>
+      <strong>- Brand X</strong>
+    </div>
+
+    <div class="video-section">
+      <h2>Video Portfolio</h2>
+      <div class="video-grid">
+        <iframe 
+  src="https://www.tiktok.com/embed/7501924727502425360?autoplay=0&mute=0" 
+  allowfullscreen
+  scrolling="no"
+  style="width:100%;aspect-ratio:9/16;border:none;overflow:hidden;">
+</iframe>
+<iframe 
+  src="https://www.tiktok.com/embed/7501924727502425360?autoplay=0&mute=0" 
+  allowfullscreen
+  scrolling="no"
+  style="width:100%;aspect-ratio:9/16;border:none;overflow:hidden;">
+</iframe>
+<iframe 
+  src="https://www.tiktok.com/embed/7501924727502425360?autoplay=0&mute=0" 
+  allowfullscreen
+  scrolling="no"
+  style="width:100%;aspect-ratio:9/16;border:none;overflow:hidden;">
+</iframe>
+<iframe 
+  src="https://www.tiktok.com/embed/7501924727502425360?autoplay=0&mute=0" 
+  allowfullscreen
+  scrolling="no"
+  style="width:100%;aspect-ratio:9/16;border:none;overflow:hidden;">
+</iframe>
+<iframe 
+  src="https://www.tiktok.com/embed/7501924727502425360?autoplay=0&mute=0" 
+  allowfullscreen
+  scrolling="no"
+  style="width:100%;aspect-ratio:9/16;border:none;overflow:hidden;">
+</iframe>
+<iframe 
+  src="https://www.tiktok.com/embed/7501924727502425360?autoplay=0&mute=0" 
+  allowfullscreen
+  scrolling="no"
+  style="width:100%;aspect-ratio:9/16;border:none;overflow:hidden;">
+</iframe>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="ratecard.pdf" class="button" download>📄 Download PDF</a>
+      <a href="https://wa.me/6281234567890?text=Halo%20Arga,%20saya%20tertarik%20dengan%20ratecard%20Anda." class="button">📲 Book Slot Bulan Ini</a>
+    </div>
+  </div>
+
+  <a class="floating-wa" href="https://wa.me/6281234567890?text=Halo%20Arga,%20saya%20tertarik%20dengan%20ratecard%20Anda.">💬</a>
+
+  <footer>
+    Hubungi: <a href="mailto:argasays@email.com" style="color:#ff4d4d;">argasays@email.com</a>
+  </footer>
+
+  <script>
+    // Scroll Animation
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('show');
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.stat-box, .engagement, .card, iframe, .testimonial')
+      .forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
